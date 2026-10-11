@@ -119,7 +119,6 @@ def remove_from_cart(
     """
     # TODO: реализуйте функцию
 
-
     line_index = find_line(cart, product_id)
     if line_index is None:
         print(f"product {product_id} is not in the cart")

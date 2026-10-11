@@ -14,13 +14,13 @@ is already taken.
 
 from decimal import Decimal
 
-from .storage import (  # noqa: F401
+from .storage import (
     NAME_INDEX,
     PRODUCT_ID_INDEX,
     PRODUCT_ID_MIN,
     Product,
 )
-from .utils import normalize_price  # noqa: F401
+from .utils import normalize_price
 
 
 def generate_product_id(storage: list[Product]) -> int:
@@ -34,7 +34,8 @@ def generate_product_id(storage: list[Product]) -> int:
         :data:`~src.part2.storage.PRODUCT_ID_MIN` when ``storage`` is
         empty.
     """
-    if not storage: return PRODUCT_ID_MIN
+    if not storage:
+        return PRODUCT_ID_MIN
     return max(product[PRODUCT_ID_INDEX] for product in storage) + 1
 
 
