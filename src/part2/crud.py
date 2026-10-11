@@ -14,13 +14,13 @@ is already taken.
 
 from decimal import Decimal
 
-from .storage import (  # noqa: F401
+from .storage import (
     NAME_INDEX,
     PRODUCT_ID_INDEX,
     PRODUCT_ID_MIN,
     Product,
 )
-from .utils import normalize_price  # noqa: F401
+from .utils import normalize_price
 
 
 def generate_product_id(storage: list[Product]) -> int:
@@ -34,7 +34,8 @@ def generate_product_id(storage: list[Product]) -> int:
         :data:`~src.part2.storage.PRODUCT_ID_MIN` when ``storage`` is
         empty.
     """
-    if not storage: return PRODUCT_ID_MIN
+    if not storage:
+        return PRODUCT_ID_MIN
     return max(product[PRODUCT_ID_INDEX] for product in storage) + 1
 
 
@@ -62,12 +63,12 @@ def create_product(
             print(f"product name {name} is already taken")
             return None
 
-    id_product = generate_product_id(storage)
+    new_product_id = generate_product_id(storage)
     normalized_price = normalize_price(price)
 
-    new_product = (id_product, name, normalized_price, quantity)
+    new_product = (new_product_id, name, normalized_price, quantity)
     storage.append(new_product)
-    return id_product
+    return new_product_id
 
 
 def read_product(storage: list[Product], product_id: int) -> Product | None:
@@ -114,11 +115,11 @@ def update_product(
         left unchanged and a message is printed).
     """
     name, price, quantity = fields
-    for i, product in enumerate(storage):
+    for index, product in enumerate(storage):
         if product[PRODUCT_ID_INDEX] == product_id:
             normalized_price = normalize_price(price)
             updated_product = (product_id, name, normalized_price, quantity)
-            storage[i] = updated_product
+            storage[index] = updated_product
             return updated_product
     print(f"no product with id {product_id}")
     return None
